@@ -3,6 +3,18 @@ class ArticlesController < ApplicationController
 	
 	def index
     	@articles = Article.all
+    	# GuestsCleanupJob.perform_later(job())
+    	p "1111111111111111111111"
+    	# jid = GuestsCleanupJob.perform_later(1)
+    	# jid = GuestsCleanupJob.perform_later(2)
+    	# jid = GuestsCleanupJob.set(wait: 10.second).perform_later(1)
+    	jid = GuestsCleanupJob.set(wait: 2.second).perform_later(2)
+
+    	
+    	# p jid
+    	p jid.provider_job_id
+
+    	# GuestsCleanupJob.set(wait: 10.second).perform_later("prac002", "a", "c", "gggg")
   	end
 
   	def edit
@@ -47,5 +59,9 @@ class ArticlesController < ApplicationController
 	private
   	def article_params
     	params.require(:article).permit(:title, :text)
+  	end
+
+  	def job
+  		 p "job job job job job job"
   	end
 end
